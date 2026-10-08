@@ -43,7 +43,7 @@ def chunk_document(doc: Document, size: int = 1000, overlap: int = 200) -> list[
             _save_section(chunks, lines, doc.metadata["source"], heading, size, overlap)
 
             lines.clear()
-            heading = line.lstrip("# ")
+            heading = line.lstrip("# ").partition(" { #")[0]
         else:
             lines.append(line)
     

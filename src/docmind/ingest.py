@@ -3,6 +3,7 @@ from docmind.loader import load_documents
 from docmind.chunking import chunk_document, Chunk
 from sentence_transformers import SentenceTransformer
 import chromadb, logging
+from docmind import config
 
 logger = logging.getLogger(__name__)
 
@@ -13,7 +14,7 @@ def ingest(data_dir: Path, db_path: str) -> None:
     texts: list[str] = []
     metadatas: list[dict[str, str | int]] = []
 
-    model = SentenceTransformer("all-MiniLM-L6-v2")
+    model = SentenceTransformer(config.EMBEDDING_MODEL)
 
     for doc in documents:
         chunks.extend(chunk_document(doc))
@@ -29,9 +30,9 @@ def ingest(data_dir: Path, db_path: str) -> None:
 
     existing_col = [c.name for c in client.list_collections()]
     if "docmind" in existing_col:
-        client.delete_collection("docmind")
+        client.delete_collection(config.COLLECTION_NAME)
 
-    col = client.get_or_create_collection("docmind")    
+    col = client.get_or_create_collection(config.COLLECTION_NAME, configuration={"hnsw":{"space":"cosine"}})    
     col.add(
         ids = chunk_ids,
         documents = texts,
@@ -43,4 +44,4 @@ def ingest(data_dir: Path, db_path: str) -> None:
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    ingest(Path("data"), "chroma_db")
+    ingest(Path("data"), config.DB_PATH)

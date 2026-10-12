@@ -1,0 +1,221 @@
+[
+  {
+    "id": "q01",
+    "question": "Can a task function be async def?",
+    "expected": [
+      {"source": "background-tasks.md", "heading": "Create a task function"}
+    ]
+  },
+  {
+    "id": "q02",
+    "question": "How to deploy FastAPI?",
+    "expected": [
+      {"source": "first-steps.md", "heading": "Deploy your app (optional)"},
+      {"source": "first-steps.md", "heading": "Step 6: Deploy it"}
+    ]
+  },
+  {
+    "id": "q03",
+    "question": "How does data parsing work for path parameters?",
+    "expected": [
+      {"source": "path-params.md", "heading": "Data <dfn title=\"also known as: serialization, parsing, marshalling\">conversion</dfn>"}
+    ]
+  },
+  {
+    "id": "q04",
+    "question": "I want my path to contain multiple params, is it possible?",
+    "expected": [
+      {"source": "query-params.md", "heading": "Multiple path and query parameters"}
+    ]
+  },
+  {
+    "id": "q05",
+    "question": "How is the result achieved if I declare a data model as a param for my function?",
+    "expected": [
+      {"source": "body.md", "heading": "Results"}
+    ]
+  },
+  {
+    "id": "q06",
+    "question": "How to add validations to my query params?",
+    "expected": [
+      {"source": "query-params-str-validations.md", "heading": "Additional validation"},
+      {"source": "query-params-str-validations.md", "heading": "Add more validations"}
+    ]
+  },
+  {
+    "id": "q07",
+    "question": "Can we define a regular expression pattern that the param should match?",
+    "expected": [
+      {"source": "query-params-str-validations.md", "heading": "Add regular expressions"}
+    ]
+  },
+  {
+    "id": "q08",
+    "question": "How to declare numeric validations in path params?",
+    "expected": [
+      {"source": "path-params-numeric-validations.md", "heading": "Number validations: greater than or equal"},
+      {"source": "path-params-numeric-validations.md", "heading": "Number validations: greater than and less than or equal"},
+      {"source": "path-params-numeric-validations.md", "heading": "Number validations: floats, greater than and less than"}
+    ]
+  },
+  {
+    "id": "q09",
+    "question": "How to declare multiple params in a body?",
+    "expected": [
+      {"source": "body-multiple-params.md", "heading": "Multiple body parameters"}
+    ]
+  },
+  {
+    "id": "q10",
+    "question": "Can I declare extra information in my Field?",
+    "expected": [
+      {"source": "body-fields.md", "heading": "Add extra information"}
+    ]
+  },
+  {
+    "id": "q11",
+    "question": "What is a nested model?",
+    "expected": [
+      {"source": "body-nested-models.md", "heading": "Nested Models"}
+    ]
+  },
+  {
+    "id": "q12",
+    "question": "What are the additional data types that can be used?",
+    "expected": [
+      {"source": "extra-data-types.md", "heading": "Other data types"}
+    ]
+  },
+  {
+    "id": "q13",
+    "question": "How to declare cookie parameters?",
+    "expected": [
+      {"source": "cookie-params.md", "heading": "Declare `Cookie` parameters"}
+    ]
+  },
+  {
+    "id": "q14",
+    "question": "How can I disable automatic conversion in my headers?",
+    "expected": [
+      {"source": "header-params.md", "heading": "Automatic conversion"}
+    ]
+  },
+  {
+    "id": "q15",
+    "question": "Can I use the response_model param in a path operation?",
+    "expected": [
+      {"source": "response-model.md", "heading": "`response_model` Parameter"}
+    ]
+  },
+  {
+    "id": "q16",
+    "question": "How can I avoid or reduce code duplication?",
+    "expected": [
+      {"source": "extra-models.md", "heading": "Reduce duplication"}
+    ]
+  },
+  {
+    "id": "q17",
+    "question": "Where should I add the response status code?",
+    "expected": [
+      {"source": "response-status-code.md", "heading": "Response Status Code"},
+      {"source": "path-operation-configuration.md", "heading": "Response Status Code"}
+    ]
+  },
+  {
+    "id": "q18",
+    "question": "What are the UploadFile attributes?",
+    "expected": [
+      {"source": "request-files.md", "heading": "`UploadFile`"}
+    ]
+  },
+  {
+    "id": "q19",
+    "question": "How can I define form params?",
+    "expected": [
+      {"source": "request-forms.md", "heading": "Define `Form` parameters"}
+    ]
+  },
+  {
+    "id": "q20",
+    "question": "How can we raise an exception in the code?",
+    "expected": [
+      {"source": "handling-errors.md", "heading": "Raise an `HTTPException` in your code"}
+    ]
+  },
+  {
+    "id": "q21",
+    "question": "How can I add tags to my path operation decorator?",
+    "expected": [
+      {"source": "path-operation-configuration.md", "heading": "Tags"}
+    ]
+  },
+  {
+    "id": "q22",
+    "question": "How can I apply partial updates?",
+    "expected": [
+      {"source": "body-updates.md", "heading": "Partial updates with `PATCH`"}
+    ]
+  },
+  {
+    "id": "q23",
+    "question": "What's the difference between PATCH and PUT?",
+    "expected": [
+      {"source": "body-updates.md", "heading": "Update replacing with `PUT`"},
+      {"source": "body-updates.md", "heading": "Partial updates with `PATCH`"}
+    ]
+  },
+  {
+    "id": "q24",
+    "question": "What is a middleware?",
+    "expected": [
+      {"source": "middleware.md", "heading": "Middleware"}
+    ]
+  },
+  {
+    "id": "q25",
+    "question": "What is CORS?",
+    "expected": [
+      {"source": "cors.md", "heading": "CORS (Cross-Origin Resource Sharing)"}
+    ]
+  },
+  {
+    "id": "q26",
+    "question": "What does jsonable_encoder do?",
+    "expected": [
+      {"source": "encoder.md", "heading": "JSON Compatible Encoder"},
+      {"source": "encoder.md", "heading": "Using the `jsonable_encoder`"}
+    ]
+  },
+  {
+    "id": "q27",
+    "question": "How can I use TestClient?",
+    "expected": [
+      {"source": "testing.md", "heading": "Using `TestClient`"}
+    ]
+  },
+  {
+    "id": "q28",
+    "question": "How to install FastAPI?",
+    "expected": [
+      {"source": "index.md", "heading": "Install FastAPI"}
+    ]
+  },
+  {
+    "id": "q29",
+    "question": "How does debugging work in FastAPI?",
+    "expected": [
+      {"source": "debugging.md", "heading": "Debugging"},
+      {"source": "debugging.md", "heading": "Call `uvicorn`"},
+      {"source": "debugging.md", "heading": "Run your code with your debugger"}
+    ]
+  },
+  {
+    "id": "q30",
+    "question": "Can I use AI agent skills with FastAPI?",
+    "expected": [
+      {"source": "index.md", "heading": "AI Agent Skills"}
+    ]
+  }
+]

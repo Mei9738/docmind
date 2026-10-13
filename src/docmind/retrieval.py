@@ -6,7 +6,7 @@ import chromadb
 class RetrievedChunk:
     text : str
     metadata: dict[str, str | int]
-    distance: list[float]
+    distance: float
 
 def retrieve(question: str, collection:chromadb.Collection, model: SentenceTransformer, k:int=5, max_distance: float = 0.5) -> list[RetrievedChunk]:
     results : list[RetrievedChunk] = []
@@ -17,7 +17,7 @@ def retrieve(question: str, collection:chromadb.Collection, model: SentenceTrans
     res_metadatas = res["metadatas"][0]
     res_distances = res["distances"][0]
     
-    for doc,meta, dist in zip(res_doc, res_metadatas, res_distances):
+    for doc, meta, dist in zip(res_doc, res_metadatas, res_distances):
         if dist <= max_distance:
             results.append(RetrievedChunk(text=doc, metadata=meta, distance=dist))
 

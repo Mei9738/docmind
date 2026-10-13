@@ -2,3 +2,7 @@ EMBEDDING_MODEL = "all-MiniLM-L6-v2"
 COLLECTION_NAME = "docmind"
 DB_PATH = "chroma_db"
 LLM_MODEL = "openai/gpt-oss-20b"
+K = 5
+EVAL_MAX_DISTANCE = 2.0
+CHUNK_SIZE = 1000
+CHUNK_OVERLAP = 200

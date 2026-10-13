@@ -17,7 +17,7 @@ def ingest(data_dir: Path, db_path: str) -> None:
     model = SentenceTransformer(config.EMBEDDING_MODEL)
 
     for doc in documents:
-        chunks.extend(chunk_document(doc))
+        chunks.extend(chunk_document(doc, config.CHUNK_SIZE, config.CHUNK_OVERLAP))
    
     for chunk in chunks:
         chunk_ids.append(f"{chunk.metadata['source']}:{chunk.metadata['position']}")

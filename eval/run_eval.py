@@ -16,6 +16,8 @@ def save_results(results: dict) -> None:
 
     file_path.write_text(json.dumps(results, indent=2))
 
+note = "the heading in front of each chunk"
+
 def run_eval() -> None:
     model = SentenceTransformer(config.EMBEDDING_MODEL)
     chroma_client = chromadb.PersistentClient(config.DB_PATH)
@@ -63,7 +65,7 @@ def run_eval() -> None:
 
     results = {
                 "timestamp": datetime.now().strftime('%Y%m%d_%H%M%S'),
-                "note": "baseline",
+                "note": note,
                 "params": { 
                     "embedding_model": config.EMBEDDING_MODEL, 
                     "chunk_size": config.CHUNK_SIZE, 

@@ -1,0 +1,229 @@
+{
+  "timestamp": "20261014_094847",
+  "note": "Changes in chunk size and overlap",
+  "params": {
+    "embedding_model": "all-MiniLM-L6-v2",
+    "chunk_size": 500,
+    "overlap": 100,
+    "k": 5,
+    "max_distance": 2.0
+  },
+  "metrics": {
+    "recall@1": 0.367,
+    "recall@3": 0.667,
+    "recall@5": 0.733,
+    "mrr": 0.5
+  },
+  "per_question": {
+    "q01": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q02": [
+      true,
+      false,
+      false,
+      true,
+      false
+    ],
+    "q03": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q04": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q05": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q06": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q07": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q08": [
+      false,
+      false,
+      false,
+      true,
+      true
+    ],
+    "q09": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q10": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q11": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q12": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q13": [
+      false,
+      false,
+      false,
+      true,
+      false
+    ],
+    "q14": [
+      true,
+      false,
+      false,
+      true,
+      true
+    ],
+    "q15": [
+      false,
+      true,
+      false,
+      false,
+      false
+    ],
+    "q16": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q17": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q18": [
+      false,
+      true,
+      false,
+      true,
+      false
+    ],
+    "q19": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q20": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q21": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q22": [
+      false,
+      true,
+      false,
+      false,
+      false
+    ],
+    "q23": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q24": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q25": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q26": [
+      true,
+      true,
+      true,
+      true,
+      false
+    ],
+    "q27": [
+      true,
+      false,
+      true,
+      true,
+      false
+    ],
+    "q28": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q29": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q30": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ]
+  }
+}

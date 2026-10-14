@@ -37,9 +37,12 @@ def chunk_document(doc: Document, size: int = 1000, overlap: int = 200) -> list[
     chunks: list[Chunk] = []
     heading = ""
     lines : list[str] = []
+    in_code = False
 
     for line in doc.text.splitlines():
-        if line.startswith("#"):
+        if line.startswith("```"):
+            in_code = not in_code
+        if line.startswith("#") and not in_code:
             _save_section(chunks, lines, doc.metadata["source"], heading, size, overlap)
 
             lines.clear()

@@ -13,6 +13,7 @@ def ingest(data_dir: Path, db_path: str) -> None:
     chunk_ids: list[str] = []
     texts: list[str] = []
     metadatas: list[dict[str, str | int]] = []
+    texts_to_embed: list[str] = []
 
     model = SentenceTransformer(config.EMBEDDING_MODEL)
 
@@ -21,10 +22,11 @@ def ingest(data_dir: Path, db_path: str) -> None:
    
     for chunk in chunks:
         chunk_ids.append(f"{chunk.metadata['source']}:{chunk.metadata['position']}")
+        texts_to_embed.append(f"{chunk.metadata['heading']}\n{chunk.text}")
         texts.append(chunk.text)
         metadatas.append(chunk.metadata)
 
-    embeddings = model.encode(texts)
+    embeddings = model.encode(texts_to_embed)
 
     client = chromadb.PersistentClient(db_path)
 

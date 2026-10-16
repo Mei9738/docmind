@@ -10,6 +10,7 @@ from docmind.retrieval import retrieve
 from docmind.generate import generate_answer
 from chromadb.errors import NotFoundError
 import logging
+from docmind.graph import build_graph
 
 logger = logging.getLogger(__name__)
 
@@ -24,6 +25,7 @@ async def lifespan(app: FastAPI):
     except NotFoundError:
         app.state.collection = None
     app.state.client = Groq()
+    app.state.graph = build_graph(app.state.collection, app.state.model, app.state.client)
     yield
 
 
@@ -65,4 +67,27 @@ def ask(request: AskRequest) -> AskResponse:
 
     return AskResponse(answer=answer.text, sources=answer.sources, retrieval_scores=scores)
 
+@app.post("/ask-graph")
+def ask_graph(request: AskRequest) -> AskResponse:
+    collection = app.state.collection
+    if collection is None or collection.count() == 0 :
+        raise HTTPException(status_code=503, detail="Index is empty. Run python -m docmind.ingest first.")
+    
+    starting_notebook = {"question": request.question, "search_queries": [request.question], "tries": 0}
+    graph = app.state.graph
+    try: 
+        result = graph.invoke(starting_notebook)
+    except APIError as e:
+            logger.error("LLM call failed: %s", e)
+            raise HTTPException(
+                        status_code=503,
+                        detail="The answer service is temporarily unavailable. Please try again later."
+                    )
+
+    scores: list[float] = []
+    for chunk in result["chunks"]:
+        scores.append(chunk.distance)
+
+
+    return AskResponse(answer=result["answer"], sources=result["sources"], retrieval_scores=scores)
 

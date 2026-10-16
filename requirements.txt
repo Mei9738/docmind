@@ -4,3 +4,4 @@ chromadb
 groq 
 python-dotenv
 fastapi[standard]
+langgraph

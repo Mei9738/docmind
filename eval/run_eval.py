@@ -6,6 +6,10 @@ from pathlib import Path
 import chromadb
 from sentence_transformers import SentenceTransformer
 from datetime import datetime
+from groq import Groq
+from dotenv import load_dotenv
+from docmind.graph  import build_graph
+import time
 
 
 def save_results(results: dict) -> None:
@@ -16,12 +20,16 @@ def save_results(results: dict) -> None:
 
     file_path.write_text(json.dumps(results, indent=2))
 
-note = "the heading in front of each chunk"
+note = "Graph, full run"
+pipeline = "raw"
 
 def run_eval() -> None:
+    load_dotenv()
     model = SentenceTransformer(config.EMBEDDING_MODEL)
     chroma_client = chromadb.PersistentClient(config.DB_PATH)
     collection = chroma_client.get_collection(config.COLLECTION_NAME)
+    client = Groq(max_retries=5)
+    graph = build_graph(collection, model, client, config.EVAL_MAX_DISTANCE)
 
     golden = json.loads(Path("eval/golden.json").read_text(encoding="utf-8"))
     
@@ -37,7 +45,16 @@ def run_eval() -> None:
         for expected in item["expected"]:
             expected_pair.add((expected["source"], expected["heading"]))
     # 2. chunks = retrieve(item["question"], collection, model, k=5, max_distance=2.0)
-        chunks = retrieve(item["question"], collection, model, config.K, config.EVAL_MAX_DISTANCE )
+
+        if pipeline == "raw": 
+            chunks = retrieve(item["question"], collection, model, config.K, config.EVAL_MAX_DISTANCE )
+        else : 
+            starting_notebook = {"question": item["question"], "search_queries": [item["question"]], "tries": 0}
+            result = graph.invoke(starting_notebook)
+            chunks = result["chunks"]
+            time.sleep(3)
+
+
     # 3. hits = []  then loop over chunks, appending True/False
         hits = []
         for chunk in chunks:
@@ -54,6 +71,7 @@ def run_eval() -> None:
         recall_5.append(recall_at_k(hits, 5))
         mrr.append(reciprocal_rank(hits))
 
+
     avg_r1 = sum(recall_1)/len(recall_1)
     avg_r3 = sum(recall_3)/len(recall_3)
     avg_r5 = sum(recall_5)/len(recall_5)
@@ -66,12 +84,13 @@ def run_eval() -> None:
     results = {
                 "timestamp": datetime.now().strftime('%Y%m%d_%H%M%S'),
                 "note": note,
-                "params": { 
+                "params": {
                     "embedding_model": config.EMBEDDING_MODEL, 
                     "chunk_size": config.CHUNK_SIZE, 
                     "overlap": config.CHUNK_OVERLAP, 
                     "k": config.K, 
-                    "max_distance": config.EVAL_MAX_DISTANCE },
+                    "max_distance": config.EVAL_MAX_DISTANCE,
+                    "pipeline" : pipeline },
                 "metrics": { 
                     "recall@1": round(avg_r1, 3), 
                     "recall@3": round(avg_r3, 3), 

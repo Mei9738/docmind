@@ -1,0 +1,230 @@
+{
+  "timestamp": "20261018_173729",
+  "note": "Raw, full run",
+  "params": {
+    "embedding_model": "all-MiniLM-L6-v2",
+    "chunk_size": 1000,
+    "overlap": 200,
+    "k": 5,
+    "max_distance": 2.0,
+    "pipeline": "raw"
+  },
+  "metrics": {
+    "recall@1": 0.433,
+    "recall@3": 0.767,
+    "recall@5": 0.833,
+    "mrr": 0.578
+  },
+  "per_question": {
+    "q01": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q02": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q03": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q04": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q05": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q06": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q07": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q08": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q09": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q10": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q11": [
+      false,
+      true,
+      false,
+      false,
+      false
+    ],
+    "q12": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q13": [
+      false,
+      false,
+      true,
+      true,
+      false
+    ],
+    "q14": [
+      true,
+      true,
+      false,
+      false,
+      false
+    ],
+    "q15": [
+      true,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q16": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q17": [
+      false,
+      false,
+      false,
+      true,
+      true
+    ],
+    "q18": [
+      false,
+      true,
+      false,
+      true,
+      false
+    ],
+    "q19": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q20": [
+      false,
+      false,
+      false,
+      true,
+      false
+    ],
+    "q21": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q22": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q23": [
+      true,
+      false,
+      false,
+      true,
+      false
+    ],
+    "q24": [
+      false,
+      false,
+      true,
+      false,
+      false
+    ],
+    "q25": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q26": [
+      true,
+      true,
+      true,
+      false,
+      false
+    ],
+    "q27": [
+      true,
+      true,
+      false,
+      false,
+      false
+    ],
+    "q28": [
+      false,
+      true,
+      false,
+      false,
+      true
+    ],
+    "q29": [
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "q30": [
+      true,
+      false,
+      false,
+      false,
+      false
+    ]
+  }
+}

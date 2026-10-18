@@ -17,10 +17,10 @@ class GraphState(TypedDict):
     answer : str
     sources : list[str]
 
-def build_graph(collection:chromadb.Collection, model: SentenceTransformer, client: Groq):
+def build_graph(collection:chromadb.Collection, model: SentenceTransformer, client: Groq, max_distance : float = 0.5):
         
     def retrieve_node(state: GraphState) -> dict:
-        chunks = retrieve(state["search_queries"][-1], collection, model)
+        chunks = retrieve(state["search_queries"][-1], collection, model, config.K, max_distance)
         return {"chunks": chunks}
 
     def check_node(state: GraphState) -> dict:

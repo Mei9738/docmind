@@ -3,4 +3,6 @@
 | baseline	| — 	| 0.367	   | 0.633     | 0.800    | 0.511	  | —        |          |
 | code-blockfix	| bug found while checking headings	| 0.367	   | 0.633     | 0.800    | 0.511	  | yes       |only affected debugging.md; no golden question uses that part; kept because headings are now correct          |
 | chunk 500/100	| testing the chunk size knob	| 0.367	   | 0.667     | 0.733    | 0.500	  | no       |fixed q29 and q20, lost q19, q24, q28; smaller chunks fill the top 5 with pieces of the same section         |
-| the heading in front of each chunk	| chunks in the middle of a section don’t know their topic (my Ticket #6 idea)	| 0.433	   | 0.767     | 0.833    | 0.578	  | -       |         |
+| the heading in front of each chunk	| chunks in the middle of a section don’t know their topic (my Ticket #6 idea)	| 0.433	   | 0.767     | 0.833    | 0.578	  | yes       |9 questions moved up, none got worse; q17 newly found         |
+| raw re-run (Ticket #10)	| same index as the graph run, for a fair comparison	| 0.433	   | 0.767     | 0.833    | 0.578	  | —       |identical to the previous row, so raw results are repeatable         |
+| LangGraph pipeline (Ticket #10)	| check chunks with an LLM and rewrite the question when they're bad	| 0.500	   | 0.767     | 0.800    | 0.608	  | mixed       |25 questions unchanged; 3 improved (q17 4→1, q18 2→1, q24 3→1); 2 worse (q12 3→missed, q14 1→3), likely the checker wrongly said "bad"; up to 8 LLM calls per question vs none for raw         |

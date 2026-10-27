@@ -70,6 +70,24 @@ curl -X POST http://127.0.0.1:8000/ask \
   -d '{"question": "How do I make a query parameter optional?"}'
 ```
 
+## Run with Docker
+
+No Python setup needed: Docker installs everything, builds the search index and starts the API.
+
+Copy the example environment file, then put your Groq key in `.env`:
+
+```bash
+copy .env.example .env              # Windows (macOS/Linux: cp .env.example .env)
+```
+
+Build and start the service:
+
+```bash
+docker compose up
+```
+
+The first build takes a few minutes, because it builds the search index. Then open http://localhost:8000/docs.
+
 ## Tests
 
 ```bash

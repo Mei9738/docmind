@@ -5,3 +5,4 @@ groq
 python-dotenv
 fastapi[standard]
 langgraph
+mlflow

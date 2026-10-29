@@ -11,3 +11,5 @@ build/
 .pytest_cache/
 chroma_test/
 chroma_db/
+mlflow.db
+mlruns/

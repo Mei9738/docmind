@@ -10,20 +10,22 @@ from groq import Groq
 from dotenv import load_dotenv
 from docmind.graph  import build_graph
 import time
+import mlflow
 
 
-def save_results(results: dict) -> None:
+def save_results(results: dict) -> Path:
     Path("eval/results").mkdir(parents=True, exist_ok=True)
 
     filename = datetime.now().strftime('%Y%m%d_%H%M%S')
     file_path = Path(f"eval/results/{filename}.json")
 
     file_path.write_text(json.dumps(results, indent=2))
+    return file_path
 
 note = "Graph, full run"
-pipeline = "raw"
+pipeline = "graph"
 
-def run_eval() -> None:
+def run_eval() -> Path:
     load_dotenv()
     model = SentenceTransformer(config.EMBEDDING_MODEL)
     chroma_client = chromadb.PersistentClient(config.DB_PATH)
@@ -92,14 +94,24 @@ def run_eval() -> None:
                     "max_distance": config.EVAL_MAX_DISTANCE,
                     "pipeline" : pipeline },
                 "metrics": { 
-                    "recall@1": round(avg_r1, 3), 
-                    "recall@3": round(avg_r3, 3), 
-                    "recall@5": round(avg_r5, 3), 
+                    "recall_at_1": round(avg_r1, 3), 
+                    "recall_at_3": round(avg_r3, 3), 
+                    "recall_at_5": round(avg_r5, 3), 
                     "mrr": round(avg_mrr, 3) },
                 "per_question": per_question
                     }
 
-    save_results(results)
+    path = save_results(results)
+
+
+    mlflow.set_experiment("docmind-retrieval")      # a folder that groups your runs
+
+    with mlflow.start_run(run_name=note):            # one run = one eval
+        mlflow.log_params(results["params"])                    # a dict of settings
+        mlflow.log_metrics(results["metrics"])                   # a dict of scores
+        mlflow.log_artifact(str(path))                    # the path of a file to attach
+
+    return path
     
 if __name__ == "__main__":
     run_eval()

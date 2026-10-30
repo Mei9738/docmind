@@ -3,11 +3,11 @@ from contextlib import asynccontextmanager
 
 import chromadb
 from chromadb.errors import NotFoundError
+from chromadb.utils.embedding_functions import ONNXMiniLM_L6_V2
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException
 from groq import APIError, Groq
 from pydantic import BaseModel
-from sentence_transformers import SentenceTransformer
 
 from docmind import config
 from docmind.generate import generate_answer
@@ -20,7 +20,7 @@ load_dotenv()
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    app.state.model = SentenceTransformer(config.EMBEDDING_MODEL)
+    app.state.model = ONNXMiniLM_L6_V2()
     chroma_client = chromadb.PersistentClient(config.DB_PATH)
     try:
         app.state.collection = chroma_client.get_collection(config.COLLECTION_NAME)

@@ -3,7 +3,6 @@ FROM python:3.12
 WORKDIR /docmind
 
 COPY requirements.txt .
-RUN pip install --no-cache-dir torch --index-url https://download.pytorch.org/whl/cpu
 RUN pip install -r requirements.txt
 
 COPY pyproject.toml .

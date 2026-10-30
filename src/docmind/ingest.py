@@ -2,7 +2,7 @@ import logging
 from pathlib import Path
 
 import chromadb
-from sentence_transformers import SentenceTransformer
+from chromadb.utils.embedding_functions import ONNXMiniLM_L6_V2
 
 from docmind import config
 from docmind.chunking import Chunk, chunk_document
@@ -18,7 +18,7 @@ def ingest(data_dir: Path, db_path: str) -> None:
     metadatas: list[dict[str, str | int]] = []
     texts_to_embed: list[str] = []
 
-    model = SentenceTransformer(config.EMBEDDING_MODEL)
+    model = ONNXMiniLM_L6_V2()
 
     for doc in documents:
         chunks.extend(chunk_document(doc, config.CHUNK_SIZE, config.CHUNK_OVERLAP))
@@ -29,7 +29,7 @@ def ingest(data_dir: Path, db_path: str) -> None:
         texts.append(chunk.text)
         metadatas.append(chunk.metadata)
 
-    embeddings = model.encode(texts_to_embed)
+    embeddings = model(texts_to_embed)
 
     client = chromadb.PersistentClient(db_path)
 

@@ -1,9 +1,9 @@
 from typing import TypedDict
 
 import chromadb
+from chromadb.utils.embedding_functions import ONNXMiniLM_L6_V2
 from groq import Groq
 from langgraph.graph import END, START, StateGraph
-from sentence_transformers import SentenceTransformer
 
 from docmind import config
 from docmind.generate import NO_ANSWER, generate_answer
@@ -20,7 +20,7 @@ class GraphState(TypedDict):
     answer : str
     sources : list[str]
 
-def build_graph(collection:chromadb.Collection, model: SentenceTransformer, client: Groq, max_distance : float = 0.5):
+def build_graph(collection:chromadb.Collection, model: ONNXMiniLM_L6_V2, client: Groq, max_distance : float = 0.5):
         
     def retrieve_node(state: GraphState) -> dict:
         chunks = retrieve(state["search_queries"][-1], collection, model, config.K, max_distance)

@@ -1,13 +1,13 @@
 import chromadb
+from chromadb.utils.embedding_functions import ONNXMiniLM_L6_V2
 from dotenv import load_dotenv
 from groq import Groq
-from sentence_transformers import SentenceTransformer
 
 from docmind import config
 from docmind.graph import build_graph
 
 load_dotenv()
-model = SentenceTransformer(config.EMBEDDING_MODEL)
+model = ONNXMiniLM_L6_V2()
 chroma_client = chromadb.PersistentClient(config.DB_PATH)
 collection = chroma_client.get_collection(config.COLLECTION_NAME)
 client = Groq()

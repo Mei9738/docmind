@@ -2,6 +2,8 @@
 
 A RAG service that answers questions about the FastAPI documentation, with cited sources.
 
+**Live demo:** [docmind-70yb.onrender.com/docs](https://docmind-70yb.onrender.com/docs). Try `POST /ask` in the browser. It runs on a free plan that sleeps when idle, so the first request can take about a minute.
+
 Built from scratch, without a RAG framework: every step of the pipeline (loading, chunking, embedding, retrieval, prompting) is hand-written and tested.
 
 ## How it works

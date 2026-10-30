@@ -1,16 +1,19 @@
-from docmind import config
-from docmind.retrieval import retrieve
-from docmind.metrics import recall_at_k, reciprocal_rank
-import json 
-from pathlib import Path
-import chromadb
-from sentence_transformers import SentenceTransformer
-from datetime import datetime
-from groq import Groq
-from dotenv import load_dotenv
-from docmind.graph  import build_graph
+import json
+import sys
 import time
+from datetime import datetime
+from pathlib import Path
+
+import chromadb
 import mlflow
+from dotenv import load_dotenv
+from groq import Groq
+from sentence_transformers import SentenceTransformer
+
+from docmind import config
+from docmind.graph import build_graph
+from docmind.metrics import recall_at_k, reciprocal_rank
+from docmind.retrieval import retrieve
 
 
 def save_results(results: dict) -> Path:
@@ -22,16 +25,16 @@ def save_results(results: dict) -> Path:
     file_path.write_text(json.dumps(results, indent=2))
     return file_path
 
-note = "Graph, full run"
-pipeline = "graph"
 
-def run_eval() -> Path:
+def run_eval(pipeline: str, note: str) -> Path:
     load_dotenv()
     model = SentenceTransformer(config.EMBEDDING_MODEL)
     chroma_client = chromadb.PersistentClient(config.DB_PATH)
     collection = chroma_client.get_collection(config.COLLECTION_NAME)
-    client = Groq(max_retries=5)
-    graph = build_graph(collection, model, client, config.EVAL_MAX_DISTANCE)
+
+    if pipeline == "graph":
+        client = Groq(max_retries=5)
+        graph = build_graph(collection, model, client, config.EVAL_MAX_DISTANCE)
 
     golden = json.loads(Path("eval/golden.json").read_text(encoding="utf-8"))
     
@@ -50,7 +53,7 @@ def run_eval() -> Path:
 
         if pipeline == "raw": 
             chunks = retrieve(item["question"], collection, model, config.K, config.EVAL_MAX_DISTANCE )
-        else : 
+        else: 
             starting_notebook = {"question": item["question"], "search_queries": [item["question"]], "tries": 0}
             result = graph.invoke(starting_notebook)
             chunks = result["chunks"]
@@ -103,15 +106,20 @@ def run_eval() -> Path:
 
     path = save_results(results)
 
-
-    mlflow.set_experiment("docmind-retrieval")      # a folder that groups your runs
+    mlflow.set_experiment("docmind-retrieval")       # a folder that groups your runs
 
     with mlflow.start_run(run_name=note):            # one run = one eval
-        mlflow.log_params(results["params"])                    # a dict of settings
-        mlflow.log_metrics(results["metrics"])                   # a dict of scores
-        mlflow.log_artifact(str(path))                    # the path of a file to attach
+        mlflow.log_params(results["params"])         # a dict of settings
+        mlflow.log_metrics(results["metrics"])       # a dict of scores
+        mlflow.log_artifact(str(path))               # the path of a file to attach
 
     return path
     
 if __name__ == "__main__":
-    run_eval()
+    if len(sys.argv) < 2 :
+        raise SystemExit("Usage: python eval/run_eval.py raw|graph [note]")
+    pipeline = sys.argv[1]
+    if pipeline not in ("raw", "graph"):
+        raise SystemExit("Unknown pipeline ‘rwa’. Use raw or graph.")
+    note = sys.argv[2] if len(sys.argv) > 2 else pipeline
+    run_eval(pipeline, note)

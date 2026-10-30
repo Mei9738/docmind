@@ -1,9 +1,10 @@
-from dotenv import load_dotenv
 import chromadb
-from docmind import config
+from dotenv import load_dotenv
 from groq import Groq
-from docmind.graph  import build_graph
 from sentence_transformers import SentenceTransformer
+
+from docmind import config
+from docmind.graph import build_graph
 
 load_dotenv()
 model = SentenceTransformer(config.EMBEDDING_MODEL)

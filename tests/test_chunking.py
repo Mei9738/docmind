@@ -1,6 +1,7 @@
-from docmind.loader import Document
-from docmind.chunking import chunk_document, Chunk, _split_text
 import pytest
+
+from docmind.chunking import Chunk, _split_text, chunk_document
+from docmind.loader import Document
 
 
 def test_splits_on_headings():

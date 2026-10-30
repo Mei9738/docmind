@@ -1,5 +1,7 @@
 from dataclasses import dataclass
+
 from docmind.loader import Document
+
 
 @dataclass
 class Chunk:

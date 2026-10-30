@@ -1,4 +1,5 @@
-from docmind.metrics import reciprocal_rank, recall_at_k
+from docmind.metrics import recall_at_k, reciprocal_rank
+
 
 def test_metrics():
     hits = [False, False, True, False]

@@ -1,9 +1,12 @@
+import logging
 from pathlib import Path
-from docmind.loader import load_documents
-from docmind.chunking import chunk_document, Chunk
+
+import chromadb
 from sentence_transformers import SentenceTransformer
-import chromadb, logging
+
 from docmind import config
+from docmind.chunking import Chunk, chunk_document
+from docmind.loader import load_documents
 
 logger = logging.getLogger(__name__)
 

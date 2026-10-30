@@ -1,16 +1,18 @@
-from contextlib import asynccontextmanager
-from dotenv import load_dotenv
-from pydantic import BaseModel
-from fastapi import FastAPI, HTTPException
-from sentence_transformers import SentenceTransformer
-import chromadb
-from docmind import config
-from groq import Groq, APIError
-from docmind.retrieval import retrieve
-from docmind.generate import generate_answer
-from chromadb.errors import NotFoundError
 import logging
+from contextlib import asynccontextmanager
+
+import chromadb
+from chromadb.errors import NotFoundError
+from dotenv import load_dotenv
+from fastapi import FastAPI, HTTPException
+from groq import APIError, Groq
+from pydantic import BaseModel
+from sentence_transformers import SentenceTransformer
+
+from docmind import config
+from docmind.generate import generate_answer
 from docmind.graph import build_graph
+from docmind.retrieval import retrieve
 
 logger = logging.getLogger(__name__)
 

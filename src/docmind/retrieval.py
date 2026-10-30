@@ -1,6 +1,8 @@
 from dataclasses import dataclass
-from sentence_transformers import SentenceTransformer
+
 import chromadb
+from sentence_transformers import SentenceTransformer
+
 
 @dataclass
 class RetrievedChunk:

@@ -1,4 +1,5 @@
-from docmind.loader import load_documents, Document
+from docmind.loader import Document, load_documents
+
 
 def test_loader(tmp_path):
     file1 = tmp_path / "test_1.md"

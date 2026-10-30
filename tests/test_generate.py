@@ -1,4 +1,5 @@
-from docmind.generate import generate_answer, NO_ANSWER
+from docmind.generate import NO_ANSWER, generate_answer
+
 
 def test_generate():
     res = generate_answer("anything", [], None)

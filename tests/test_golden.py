@@ -1,7 +1,8 @@
-from pathlib import Path
-from docmind.loader import load_documents
-from docmind.chunking import chunk_document, Chunk
 import json
+from pathlib import Path
+
+from docmind.chunking import Chunk, chunk_document
+from docmind.loader import load_documents
 
 
 def test_golden_headings_exist() -> None:

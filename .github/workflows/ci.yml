@@ -1,0 +1,30 @@
+name: CI
+
+on: push                      # run on every push
+
+jobs:
+  check:
+    runs-on: ubuntu-latest    # a fresh Linux computer
+    steps:
+      - uses: actions/checkout@v4          # download your repo onto it
+      - uses: actions/setup-python@v5      # install Python
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt
+          pip install .
+
+      - name: Lint
+        run: ruff check .
+
+      - name: Tests
+        run: pytest
+
+      - name: Build the index
+        run: python -m docmind.ingest
+
+      - name: Retrieval eval
+        run: python eval/run_eval.py raw
